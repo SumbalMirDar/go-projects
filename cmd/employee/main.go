@@ -29,7 +29,8 @@ func main() {
 	}
 
 	// Create an instance of EmployeeService with the database connection
-	employeeService := &service.EmployeeService{Repo: &repository.EmployeeRepository{DB: db}}
+	repo := &repository.EmployeeRepository{DB: db}
+	employeeService := &service.EmployeeService{Repo: repo}
 
 	// Create a new Fiber app
 	app := fiber.New()
@@ -38,10 +39,10 @@ func main() {
 	handler.RegisterEmployeeHandler(app, employeeService)
 
 	// Serve Swagger UI
-	app.Static("/swagger", "../swagger") // Assuming your Swagger UI files are in the "swagger" directory
+	//app.Static("/swagger", "../swagger") // Assuming your Swagger UI files are in the "swagger" directory
 
 	// Start the server
-	err = app.Listen(":3000")
+	err = app.Listen(":3008")
 	if err != nil {
 		fmt.Println("Error starting server:", err)
 	}
